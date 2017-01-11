@@ -13,7 +13,7 @@ public class MessagingService extends FirebaseMessagingService {
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-        Log.d(TAG, "Remote message received");
+        Log.d(TAG, "Remote message received: " + remoteMessage);
         Intent i = new Intent("com.evollu.react.fcm.ReceiveNotification");
         i.putExtra("data", remoteMessage);
         sendOrderedBroadcast(i, null);
