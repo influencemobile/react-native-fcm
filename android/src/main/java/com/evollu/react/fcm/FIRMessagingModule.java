@@ -94,20 +94,20 @@ public class FIRMessagingModule extends ReactContextBaseJavaModule implements Li
         getReactApplicationContext().registerReceiver(new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-            if (getReactApplicationContext().hasActiveCatalystInstance()) {
-                RemoteMessage message = intent.getParcelableExtra("data");
-                WritableMap params = Arguments.createMap();
-                if(message.getData() != null){
-                    Map data = message.getData();
-                    Set<String> keysIterator = data.keySet();
-                    for(String key: keysIterator){
-                        params.putString(key, (String) data.get(key));
-                    }
-                    sendEvent("FCMNotificationReceived", params);
-                    abortBroadcast();
-                }
-
-            }
+              Log.d(TAG, "BroadcastReceiver onReceive");
+              if (getReactApplicationContext().hasActiveCatalystInstance()) {
+                  RemoteMessage message = intent.getParcelableExtra("data");
+                  WritableMap params = Arguments.createMap();
+                  if(message.getData() != null){
+                      Map data = message.getData();
+                      Set<String> keysIterator = data.keySet();
+                      for(String key: keysIterator){
+                          params.putString(key, (String) data.get(key));
+                      }
+                      sendEvent("FCMNotificationReceived", params);
+                      abortBroadcast();
+                  }
+              }
             }
         }, intentFilter);
     }
